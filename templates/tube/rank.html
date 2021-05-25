@@ -1,0 +1,20 @@
+{% extends "tube/base.html" %}
+{% load static %}
+
+{% block main %}
+
+{% include "tube/search_form.html" %}
+
+    ランキングページ
+
+    {% for video in videos %}
+    <div class="single_video_area">
+        <p>{{ video.title }}</p>
+        <p>{{ video.description }}</p>
+        <a href="{% url 'tube:single' video.id %}">見る</a>
+    </div>
+    {% endfor %}
+
+{% endblock %}
+
+

@@ -1,0 +1,38 @@
+{% extends "tube/mypage_base.html" %}
+{% load static %}
+
+
+{% block mypage_content %}
+
+<h2>視聴履歴</h2>
+
+<!--TODO:ここに複数選択削除のフォームを-->
+
+
+{% for history in histories %}
+<div class="video_list_view">
+
+    <div class="video_list_thumbnail_area">
+        {% if history.target.thumbnail %}
+        <a class="video_list_thumbnail" href="{% url 'tube:single' history.target.id %}"><img src="/media/{{ history.target.thumbnail }}" alt="thumbnail"></a>
+        {% else %}
+        <a class="video_list_thumbnail" href="{% url 'tube:single' history.target.id %}"><img src="{% static 'tube/img/no-img.png' %}" alt="thumbnail"></a>
+        {% endif %}
+    
+    </div>
+    <div class="video_list_description_area">
+        <div class="video_list_description_inner">
+            <h3 class="video_list_title"><a class="video_list_title_link" href="{% url 'tube:single' history.target.id %}">{{ history.target.title }}</a></h3>
+            <div>{{ history.target.user.handle_name }}</div>
+            <div>{{ history.target.description }}</div>
+            <div>視聴日時:{{ history.dt|date:"Y年m月d日 H時i分s秒" }} - {{ history.views }} 回視聴</div>
+        </div>
+    </div>
+
+</div>
+{% empty %}
+<p>視聴履歴はありません。</p>
+{% endfor %}
+
+
+{% endblock %}

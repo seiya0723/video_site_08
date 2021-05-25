@@ -1,0 +1,11 @@
+<form class="single_video_rating_content" action="{% url 'tube:single_mod' video.id %}">
+    {% csrf_token %}
+    <i class="fas fa-thumbs-up single_video_rating_button rating_good {% if already_good %}already_good{% endif %}"></i>
+    <span class="rating_num">{{ good|length }}</span>
+</form>
+<form class="single_video_rating_content" action="{% url 'tube:single_mod' video.id %}">
+    {% csrf_token %}
+    <i class="fas fa-thumbs-down single_video_rating_button rating_bad {% if already_bad %}already_bad{% endif %}"></i>
+    <span class="rating_num">{{ bad|length }}</span>
+</form>
+

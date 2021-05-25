@@ -1,0 +1,6 @@
+<div class="search_form_area">
+    <form class="search_form" action="{% url 'tube:search' %}" method="GET">
+        <input class="search_form_word" type="text" name="word" value="{{ request.GET.word }}" placeholder="キーワード検索" >
+        <button class="search_form_submit" type="submit"><i class="fas fa-search"></i></button>
+    </form>
+</div>

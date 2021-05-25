@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{% block site_title %}{% endblock %}</title>
+
+    <!--静的ファイルの読み込みは html冒頭でload staticのテンプレートタグを記述した後、下記のように読み込み指定する。-->
+    <link rel="stylesheet" href="{% static 'common/css/l_sidebar.css' %}">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="{% static 'common/js/jquery-3.1.1.min.js' %}"></script>
+    {# <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> #}
+
+    <script src="{% static 'common/js/l_sidebar.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'common/css/fontawesome/all.css' %} ">
+
+    {% block extra_head %}
+    {% endblock %}
+
+</head>
+<body>
+
+    <header>
+
+        <input id="l_sidebar" class="l_sidebar_button" type="checkbox">
+
+        <div class="left_header">
+            <label class="l_sidebar_label" for="l_sidebar">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-times"></i>
+            </label>
+            <a class="header_link" href="{% url 'tube:index' %}"><h1>{% block header_title %}{% endblock %}</h1></a>
+            <div class="header_right_content">
+            {% block header_right_content %}
+            {% endblock %}
+            </div>
+        </div>
+
+        <div class="l_sidebar_menu">
+            {% block sidebar_content %}{% endblock %}
+        </div>
+
+        <div id="l_sidebar_closer" class="l_sidebar_closer"></div>
+
+
+    </header>
+
+
+    <main>
+    {% block main %}
+    {% endblock %}
+    </main>
+
+
+
+</body>
+</html>
+
+

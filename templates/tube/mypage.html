@@ -1,0 +1,72 @@
+{% extends "tube/mypage_base.html" %}
+{% load static %}
+
+
+{% block mypage_content %}
+
+
+
+    <h2>基本情報</h2>
+
+    <table>
+        <tr>
+            <td>ユーザー名</td>
+            <td>{{ request.user }}</td>
+        </tr>
+        <tr>
+            <td>最終ログイン</td>
+            <td>{{ request.user.last_login }}</td>
+        </tr>
+        <tr>
+            <td>メールアドレス</td>
+            <td>{{ request.user.email }}</td>
+        </tr>
+    </table>
+
+    
+    <h2>投稿した動画</h2>
+
+
+    <div class="video_content_list">
+        {% for video in videos %}
+        <div class="video_content">
+            <a class="video_content_link" href="{% url 'tube:single' video.id %}">
+                {% if video.thumbnail %}
+                <img class="video_thumbnail" src="/media/{{ video.thumbnail }}" alt="{{ video.title }}">
+                {% else %}
+                <img class="video_thumbnail" src="{% static 'tube/img/no-img.png' %}" alt="{{ video.title }}">
+                {% endif %}
+
+                <div class="video_title">{{ video.title }}</div>
+            </a>
+        </div>
+        {% empty %}
+        <div class="video_content"><p>投稿した動画はありません。<a href="{% url 'tube:upload' %}">アップロード</a>から投稿できます。</p></div>
+        {% endfor %}
+    </div>
+    
+    <h2>高く評価した動画</h2>
+
+    <div class="video_content_list">
+        {% for video in good_videos %}
+        <div class="video_content">
+            <a class="video_content_link" href="{% url 'tube:single' video.target.id %}">
+                {% if video.target.thumbnail %}
+                <img class="video_thumbnail" src="/media/{{ video.target.thumbnail }}" alt="{{ video.target.title }}">
+                {% else %}
+                <img class="video_thumbnail" src="{% static 'tube/img/no-img.png' %}" alt="{{ video.target.title }}">
+                {% endif %}
+
+                <div class="video_title">{{ video.target.title }}</div>
+            </a>
+        </div>
+        {% empty %}
+        <div class="video_content"><p>高評価した動画はありません。</div>
+        {% endfor %}
+    </div>
+
+
+
+
+
+{% endblock %}

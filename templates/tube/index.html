@@ -1,0 +1,97 @@
+{% extends "tube/base.html" %}
+{% load static %}
+{% load param_change %}
+
+{% block main %}
+
+{% block extra_head %}
+{{ block.super }}
+{% endblock %}
+
+
+
+{% block page_title %}{% endblock %}
+
+
+{% include "tube/search_form.html" %}
+
+
+    {% if recommends %}
+    <h2>おすすめ</h2>
+
+    <div class="video_content_list">
+
+        <div class="video_content">
+            <a class="video_content_link" href="">
+                <img class="video_thumbnail" src="{% static 'tube/img/no-img.png' %}" alt="動画タイトル">
+                <div class="video_title">タイトル</div>
+            </a>
+        </div>
+
+    </div>
+    {% endif %}
+
+
+    {% if histories %}
+    <h2>もう一度見る</h2>
+
+    <div class="video_content_list">
+
+        {% for history in histories %}
+        <div class="video_content">
+            <a class="video_content_link" href="{% url 'tube:single' history.target.id %}">
+                {% if history.target.thumbnail %}
+                <img class="video_thumbnail" src="/media/{{ history.target.thumbnail }}" alt="{{ history.target.title }}">
+                {% else %}
+                <img class="video_thumbnail" src="{% static 'tube/img/no-img.png' %}" alt="{{ history.target.title }}">
+                {% endif %}
+                <div class="video_title">{{ history.target.title }}</div>
+            </a>
+        </div>
+        {% endfor %}
+
+    </div>
+    {% endif %}
+
+
+    {% if ranks %}
+    <h2>総合ランキング</h2>
+
+    <div class="video_content_list">
+        <div class="video_content">
+            <a class="video_content_link" href="">
+                <img class="video_thumbnail" src="{% static 'tube/img/no-img.png' %}" alt="動画タイトル">
+                <div class="video_title">タイトル</div>
+            </a>
+        </div>
+    </div>
+    {% endif %}
+
+
+    <h2>新着動画</h2>
+
+    <div class="video_content_list">
+
+        {% for latest in latests %}
+        <div class="video_content">
+            <a class="video_content_link" href="{% url 'tube:single' latest.id %}">
+                {% if latest.thumbnail %}
+                <img class="video_thumbnail" src="/media/{{ latest.thumbnail }}" alt="{{ latest.title }}">
+                {% else %}
+                <img class="video_thumbnail" src="{% static 'tube/img/no-img.png' %}" alt="{{ latest.title }}">
+                {% endif %}
+                <div class="video_title">{{ latest.title }}</div>
+            </a>
+        </div>
+        {% empty %}
+        <div class="video_content">動画がありません</div>
+        {% endfor %}
+
+    </div>
+
+
+{% endblock %}
+
+
+
+

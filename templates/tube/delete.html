@@ -1,0 +1,37 @@
+{% extends "tube/base.html" %}
+{% load static %}
+{% load param_change %}
+
+{% block main %}
+
+{% block extra_head %}
+{{ block.super }}
+
+ <style>
+    h2 {
+       color: #F36C21;
+       font-weight: bold;
+       }
+ </style>
+{% endblock %}
+
+
+
+{% block page_title %}{% endblock %}
+
+
+    <h2>動画削除ページ</h2>
+    <div>
+        <p>一度削除すると、元に戻すことが出来ません。本当に削除しますか？</p>
+    </div>
+
+          <form action="{% url 'tube:delete' video.id %}" method ="POST" style="display:inline-block;">
+            {% csrf_token %}
+            <button class="btn-gradient-delete">Yes</button>
+          </form>
+
+           <a class="btn-gradient-success" href="{% url 'tube:index' %}">No</a>
+
+
+
+{% endblock %}

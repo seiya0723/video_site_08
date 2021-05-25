@@ -1,0 +1,67 @@
+{% extends "tube/base.html" %}
+{% load static %}
+
+{% block main %}
+
+{% include "tube/search_form.html" %}
+
+
+<div class="mypage_content_area">
+
+    <div class="mypage_menu">
+
+        <!--このチェックボックス表示化の機構はスマホ表示時のみ有効とする。-->
+        <input id="mypage_menu_chk" class="mypage_menu_chk" type="checkbox">
+        <label for="mypage_menu_chk" class="mypage_menu_label">マイページメニュー</label>
+        
+        <div class="mypage_menu_area">
+
+            <div class="menu_content">
+                <a href="{% url 'tube:mypage' %}" class="menu_icon"><i class="fas fa-user"></i><div class="menu_explain">マイページ</div></a>
+            </div>
+            <div class="menu_content">
+                <a href="{% url 'tube:notify' %}" class="menu_icon"><i class="far fa-bell"></i><div class="menu_explain">通知</div></a>
+            </div>
+            <div class="menu_content">
+                <a href="{% url 'tube:history' %}" class="menu_icon"><i class="fas fa-history"></i><div class="menu_explain">視聴履歴</div></a>
+            </div>
+            <div class="menu_content">
+                <a href="{% url 'tube:mylist' %}" class="menu_icon"><i class="far fa-list-alt"></i><div class="menu_explain">マイリスト</div></a>
+            </div>
+            <div class="menu_content">
+                <a href="{% url 'tube:recommend' %}" class="menu_icon"><i class="far fa-star"></i><div class="menu_explain">おすすめ</div></a>
+            </div>
+            <div class="menu_content">
+                <a href="{% url 'tube:upload' %}" class="menu_icon"><i class="far fa-file-video"></i><div class="menu_explain">アップロード</div></a>
+            </div>
+            <div class="menu_content">
+                <a href="{% url 'tube:config' %}" class="menu_icon"><i class="fas fa-cogs"></i><div class="menu_explain">設定</div></a>
+            </div>
+            <div class="menu_content">
+                <a href="{% url 'account_logout' %}" class="menu_icon"><i class="fas fa-sign-out-alt"></i><div class="menu_explain">ログアウト</div></a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="mypage_content">
+        <div class="mypage_content_body">
+            {% block mypage_content %}{% endblock %}
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+

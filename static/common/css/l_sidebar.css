@@ -1,0 +1,129 @@
+html, body {
+    overflow-x: hidden;
+    margin:0;
+}
+a {
+    color:#70C0F5;
+    text-decoration:none;
+}
+.left_header {
+    width:100%;
+    height:3rem;
+    position:fixed;
+    z-index:99;
+
+    background: rgb(252,252,252);
+    background: linear-gradient(40deg, rgba(252,252,252,1) 0%, rgba(221,255,207,1) 40%, rgba(245,255,221,1) 100%);
+
+    color:#FA9623;
+    display:flex;
+    align-items:center;
+
+    overflow:hidden;
+}
+.header_link {
+    color:#FA9623;
+    margin-left:0.5rem;
+}
+.header_link:hover {
+    color:#40E0D0;
+}
+
+.left_header h1 {
+    font-size:2rem;
+    font-weight:bold;
+    line-height:normal;
+    margin:0;
+    color: #FF8C00;
+    background: -webkit-linear-gradient(180deg, #40E0D0, #FF8C00, #FF0080);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.l_sidebar_button {
+    display:none;
+}
+.l_sidebar_label {
+    position:relative;
+    margin-left:0.5rem;
+    margin-bottom:0;
+
+    width:3rem;
+    height:2rem;
+
+    z-index:100;
+    cursor:pointer;
+    transition:0.2s;
+}
+.l_sidebar_label i {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:1.75rem;
+}
+.l_sidebar_label i.fa-times { display:none; }
+.l_sidebar_label i.fa-bars { display:block; }
+input[type="checkbox"]#l_sidebar:checked ~ .left_header .l_sidebar_label i.fa-bars { display:none; }
+input[type="checkbox"]#l_sidebar:checked ~ .left_header .l_sidebar_label i.fa-times { display:block; }
+
+.header_right_content {
+    position:absolute;
+    right:0;
+    top:50%;
+    transform:translateY(-50%);
+
+    display:flex;
+    margin-right:0.5rem;
+}
+
+
+.l_sidebar_menu {
+    position:fixed;
+    top:3rem;
+    left:-300px;
+
+    height:calc( 100vh - 3rem);
+    width:300px;
+    background:#EBFADC;
+    color:#FA9623;
+
+    transition:0.2s;
+    overflow:auto;
+    z-index:99;
+}
+input[type="checkbox"]#l_sidebar:checked ~ .l_sidebar_menu{
+    left:0;
+    transition:0.2s;
+}
+.l_sidebar_closer {
+    position:fixed;
+    top:3rem;
+    right:0;
+
+    height:calc(100vh - 3rem);
+    width:100%;
+    background:white;
+    opacity:0.6;
+    cursor:pointer;
+    z-index:98;
+
+    display:none;
+}
+input[type="checkbox"]#l_sidebar:checked ~ .l_sidebar_closer{
+    display:block;
+}
+main {
+   margin-top:3rem;
+}
+
+/* sp mode */
+@media (max-width:768px){
+    .left_header h1 {
+        font-size:1.5rem;
+        font-weight:bold;
+        line-height:normal;
+        margin:0;
+    }
+
+}

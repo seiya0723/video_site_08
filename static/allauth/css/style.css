@@ -1,0 +1,86 @@
+header {
+    background:#FAF0E3;
+    color:#FA9623;
+}
+
+.header_icon{
+    display:flex;
+    font-size:2rem;
+    padding:0.3rem;
+    margin-left:0.5rem;
+    color:#FA9623;
+}
+.header_icon:hover {
+    color:#4AAEF0;
+    transition:0.2s;
+}
+
+.usericon{
+    width:3rem;
+    height:3rem;
+    display:flex;
+    padding:0.3rem;
+    margin-left:0.5rem;
+    border-radius:50%;
+}
+
+body {
+    margin:0;
+    background: rgb(255,255,255);
+    background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(246,255,231,1) 80%, rgba(238,255,209,1) 100%);
+}
+
+
+main a {
+    color:#29F2DE;
+}
+
+input[type="text"],input[type="email"],input[type="password"] {
+    font-size:1rem;
+    padding:0.25rem;
+    margin:0.25rem 0;
+    border:solid 0.2rem #BBF2FA;
+    background:#EBFCFF;
+    color:#053352;
+    transition:0.2s;
+    
+}
+input[type="text"]:focus,input[type="email"]:focus,input[type="password"]:focus {
+    box-shadow:0px 0px 5px 2px  #c2ebef;
+    transition:0.2s;
+    outline:none;
+}
+/* 動画投稿ボタン */
+button[type="submit"] {
+  display: inline-block;
+  padding: 0.5rem 2rem;
+  border:solid 0.12rem #FCC5F7;
+  border-radius: 25px;
+  text-decoration: none;
+  color: #f76e00;
+  background-image: linear-gradient(45deg, #ECFEE0 0%, #FEF2E0 100%);
+  cursor:pointer;
+  transition: .2s;
+}
+
+button[type="submit"]:hover {
+  background-image: linear-gradient(45deg, #fff5d2 0%, #ffe380 100%);
+  color:#1C2245;
+  transition:0.2s;
+}
+/*
+button[type="submit"] {
+    padding:0.5rem 2rem;
+    color:#a9a9b3;
+    background:#acfda5;
+    border:solid 0.15rem #9ffc6e;
+    border-radius: 0.25rem;
+    cursor:pointer;
+    transition:0.2s;
+}
+button[type="submit"]:hover {
+    background:#cdfcfe;
+    color:#065456;
+    transition:0.2s;
+}
+*/

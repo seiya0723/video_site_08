@@ -1,0 +1,30 @@
+{% extends "tube/base.html" %}
+{% load static %}
+{% load param_change %}
+
+{% block main %}
+
+{% block extra_head %}
+{{ block.super }}
+{% endblock %}
+
+
+
+{% block page_title %}{% endblock %}
+
+
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div><input class="input_form_text" placeholder="タイトル..." name="title" value="{{ video.title }}"></div>
+        <!--TIPS:textarea属性にvalue属性は存在しない、中のタグに値を入れる。-->
+        <div><textarea class="textarea_form" name="description" placeholder="概要欄...">{{ video.description }}</textarea></div>
+        <div><input class="input_form_text" placeholder="更新日..." name="dt" value="{{ video.dt|date:'Y-m-d H:i' }}"></div>
+
+        <button class="button" type="submit">送信</button>
+
+
+    </form>
+
+{% endblock %}

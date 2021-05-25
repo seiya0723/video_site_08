@@ -1,0 +1,39 @@
+{% extends "tube/mypage_base.html" %}
+{% load static %}
+
+
+{% block mypage_content %}
+
+<h2>マイリスト</h2>
+
+<!--TODO:ここに複数選択削除のフォームを-->
+
+
+{% for mylist in mylists %}
+<div class="video_list_view">
+
+    <div class="video_list_thumbnail_area">
+        {% if mylist.target.thumbnail %}
+        <a class="video_list_thumbnail" href="{% url 'tube:single' mylist.target.id %}"><img src="/media/{{ mylist.target.thumbnail }}" alt="thumbnail"></a>
+        {% else %}
+        <a class="video_list_thumbnail" href="{% url 'tube:single' mylist.target.id %}"><img src="{% static 'tube/img/no-img.png' %}" alt="thumbnail"></a>
+        {% endif %}
+            
+    </div>
+    <div class="video_list_description_area">
+        <div class="video_list_description_inner">
+            <h3 class="video_list_title"><a class="video_list_title_link" href="{% url 'tube:single' mylist.target.id %}">{{ mylist.target.title }}</a></h3>
+            <div>{{ mylist.target.user.handle_name }}</div>
+            <div>{{ mylist.target.description }}</div>
+            <div>登録日時:{{ mylist.dt|date:"Y年m月d日 H時i分s秒" }}</div>
+        </div>  
+    </div>      
+
+</div>  
+{% empty %}
+<p>視聴履歴はありません。</p>
+{% endfor %}
+
+
+
+{% endblock %}

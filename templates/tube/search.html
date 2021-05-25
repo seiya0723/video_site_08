@@ -1,0 +1,38 @@
+{% extends "tube/base.html" %}
+{% load static %}
+{% load param_change %}
+
+
+
+{% block main %}
+
+    {% include "tube/search_form.html" %}
+
+    {% if amount > 0 %}
+    <div>{{ amount }}件中、{{ videos|length }}件表示しています。</div>
+    {% endif %}
+
+
+     <div class="video_content_list">
+         {% for video in videos %}
+             <div class="video_content">
+                 <a class="video_content_link" href="{% url 'tube:single' video.id %}">
+
+                     {% if video.thumbnail %}
+                     <img class="video_thumbnail" src="/media/{{ video.thumbnail }}" alt="{{ video.title }}">
+                     {% else %}
+                     <img class="video_thumbnail" src="{% static 'tube/img/no-img.png' %}" alt="{{ video.title }}">
+                     {% endif %}
+
+                     <div class="video_title">{{ video.title }}</div>
+                 </a>
+             </div>
+         {% empty %}
+             <div class="video_content">動画は見つかりませんでした。</div>
+         {% endfor %}
+     </div>
+
+
+     {% generate_pagelink request "page" "1" videos.paginator.num_pages videos.number %}
+
+{% endblock %}

@@ -1,0 +1,5 @@
+{% for comment in comments %}
+<div>{{ comment.dt|date:"Y年m月d日 H時i分s秒" }}</div>
+<div>{{ comment.content }}</div>
+<div>{{ comment.user.handle_name }}</div>
+{% endfor %}

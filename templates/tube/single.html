@@ -1,0 +1,140 @@
+{% extends "tube/base.html" %}
+{% load humanize %}
+{% load static %}
+{% load param_change %}
+
+{% block site_title %}TubeIntegrity{% endblock %}
+
+
+{% block extra_head %}
+{{ block.super }}
+<script src="{% static 'tube/js/single.js' %}"></script>
+
+{% endblock %}
+
+
+
+{% block page_title %}TubeIntegrity{% endblock %}
+
+{% block main %}
+
+         {% include "tube/search_form.html" %}
+
+<div class="single_video_area">
+    <div class="single_video_content">
+        <div class="single_video_content_inner">
+            <video class="single_video" src="/media/{{ video.movie }}" controls></video>
+        </div>
+    </div>
+
+    <div class="single_video_subcontent">
+        <div class="single_video_subcontent_inner">
+
+            <input id="subcontent_tab_1" class="subcontent_tab_radio" type="radio" name="subcontent_tab" checked><label for="subcontent_tab_1" class="subcontent_tab_label">説明</label>
+            <input id="subcontent_tab_2" class="subcontent_tab_radio" type="radio" name="subcontent_tab"><label for="subcontent_tab_2" class="subcontent_tab_label">コメント</label>
+            <input id="subcontent_tab_3" class="subcontent_tab_radio" type="radio" name="subcontent_tab"><label for="subcontent_tab_3" class="subcontent_tab_label">関連動画</label>
+
+            {% if request.user == video.user %}
+            <input id="subcontent_tab_4" class="subcontent_tab_radio" type="radio" name="subcontent_tab"><label for="subcontent_tab_4" class="subcontent_tab_label">投稿者オプション</label>
+            {% endif %}
+
+
+
+
+            <div class="single_video_description">
+                {% if video.edited %}
+                   <p class="sort"><i class="far fa-edit"></i></p>
+                {% endif %}
+
+                <h2>{{ video.title }}</h2>
+
+                {% if video.user.usericon %}
+                <div><img src="/media/{{ video.user.usericon }}" alt="投稿者アイコン"></div>
+                {% else %}
+                <div><img src="{% static 'tube/img/user.png' %}" alt="未指定投稿者アイコン"></div>
+                {% endif %}
+
+
+                {# 外部キーのuserがカスタムユーザーモデルに繋がっているのでそこからhandle_nameを呼び出せる。 #}
+                <div>投稿者{{ video.user.handle_name }}</div>
+                <div>{{ video.views|intcomma }} 回 再生 - {{ video.dt|date:"Y年m月d日 H時i分s秒" }}</div>
+
+
+                <div id="mylist_message"></div>
+                <div class="single_video_mod_area">
+                    <div id="single_video_rating_area" class="single_video_rating_area">
+                        {% include "tube/rate.html" %}
+                    </div>
+                    <div id="single_video_mylist_area" class="single_video_mylist_area">
+
+                        <form id="mylist_form_area" action="{% url 'tube:mylist' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="target" value="{{ video.id }}">
+                            <button id="mylist_submit" class="input_form_button" type="button">マイリストに登録</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div>{{ video.description }}</div>
+
+                <a class="btn-gradient-delete" href="{% url 'tube:delete' video.id %}">削除</a>
+                <a class="btn-gradient-success" href="{% url 'tube:update' video.id %}">編集</a>
+
+            </div>
+
+            <div class="single_video_comments">
+                 <div id="comments_message"></div>
+
+                 <form id="single_video_comments_form" action="{% url 'tube:single_mod' video.id %}" method="POST" >
+                     {% csrf_token %}
+                     <textarea class="textarea_form" name="content" placeholder="コメント..." rows="4" maxlength="500"></textarea>
+                     <input id="single_video_comments_submit" class="input_form_button" type="button" value="送信">
+                 </form>
+
+                 <div id="video_comments_area">
+                     {% include "tube/comments.html" %}
+                 </div>
+
+                 {% generate_pagelink request "page" "1" comments.paginator.num_pages comments.number %}
+
+            </div>
+
+            <div class="single_video_relate">
+
+                {% for relate in retales %}
+                <div class="video_list_view">
+
+                    <div class="video_list_thumbnail_area">
+                        {% if relate.thumbnail %}
+                        <a class="video_list_thumbnail" herf="{% url 'tube:single' relate.id %} "><img src="/media/{{ relate.thumbnail }}" alt="thumbnail"></a>
+                        {% else %}
+                        <a class="video_list_thumbnail" herf="{% url 'tube:single' relate.id %} "><img src="{% static 'tube/img/no-img.png' %}" alt="thumbnail"></a>
+                        {% endif %}
+                    </div>
+                    <div class="video_list_description_area">
+                        <div class="video_list_description_inner">
+                            <h3 class="video_list_title"><a class="video_list_title_link" href="{% url 'tube:single' relate.id %}">{{ relate.title }}</a></h3>
+                            <div>{{ relate.user.handle_name }}</div>
+                            <div>{{ relate.description }}</div>
+                        </div>
+                    </div>
+
+                </div>
+                {% empty %}
+                <p>関連動画はありません。</p>
+                {% endfor %}
+
+            </div>
+
+
+            {% if request.user == video.user %}
+            <div class="single_video_uploader">
+                <!--ここに動画の処理を記述する-->
+                投稿者処理
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

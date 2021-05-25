@@ -1,0 +1,58 @@
+{% extends "tube/mypage_base.html" %}
+{% load static %}
+
+{% block extra_head %}
+{{ block.super }}
+
+<script src="{% static 'tube/js/thumbs.js' %}"></script>
+<script src="{% static 'tube/js/upload.js' %}"></script>
+{% endblock %}
+
+
+{% block mypage_content %}
+
+<h2>動画アップロード</h2>
+
+
+
+<ul>
+    <li class="darkorange">mp4ファイルのみ対応しています。</li>
+    <li class="darkorange">ファイルサイズは上限200MBです。</li>
+</ul>
+
+        <div id="upload_message" class="upload_message"></div>
+
+        <form id="video_upload_form" action="{% url 'tube:upload' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <select class="select_form" name="category">
+                <option value="">カテゴリを選択してください</option>
+                {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+                {% empty %}
+                <option value="">カテゴリがありません。</option>
+                {% endfor %}
+            </select>
+
+            <input class = "input_form_text" placeholder="タイトル..." name="title" maxlength="50">
+
+            <textarea class="textarea_form" name="description" placeholder="動画説明文..." rows="4" maxlength="300"></textarea>
+
+            <input id="upload_form_video" class="darkorange" type="file" accept="video/mp4" name="movie">
+
+            <div class="thumbnail_create_area">
+                <div class="thumbnail_create_video"><video id="thumbnail_video" class="thumbnail_video" src="" controls muted></video></div>
+                <div class="thumbnail_create_button"><button id="thumbnail_button" class="thumbnail_button" type="button"><i class="far fa-images"></i>サムネイル指定</button></div>
+                <div class="thumbnail_create_canvas"><div class="thumbnail_create_canvas_explain">ここにサムネイルが表示される</div><canvas id="canvas"></canvas></div>
+            </div>
+
+            <input id="upload" class="btn-gradient-radius" type="button" value="送信">
+
+
+            {% comment %}
+            <div class="darkorange">別途サムネイル指定(jpeg,png)：<input type="file" accept=".jpg,.png,.ai,.psd,.ps" name="thumbnail"></div>
+
+            <div><input class="input_form_button" type="submit" value="別途サムネイル指定 > 送信"></div>
+            {% endcomment %}
+        </form>
+
+{% endblock %}

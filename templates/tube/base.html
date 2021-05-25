@@ -1,0 +1,97 @@
+{% extends "common/sidebar.html" %}
+{% load static %}
+
+{% block page_title %}TubeIntegrity{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'tube/css/style.css' %}">
+
+<script src="{% static 'common/js/ajax.js' %}"></script>
+{% endblock %}
+
+{% block header_title %}TubeIntegrity{% endblock %}
+
+{% block header_right_content %}
+    {% if request.user.is_authenticated %}
+        <a class="header_icon" href="{% url 'tube:notify' %}">
+            <i class="far fa-bell"></i>
+        </a>
+        {% if request.user.usericon %}
+        <a href="{% url 'tube:mypage' %}">
+            <img class="usericon" src="/media/{{ request.user.usericon }}">
+        {% else %}
+        <a class="header_icon" href="{% url 'tube:mypage' %}">
+            <i class="fas fa-user"></i>
+        </a>
+        {% endif %}
+
+    {% else %}
+        <a class="header_icon" href="{% url 'account_signup' %}">
+            <i class="fas fa-user-plus"></i>
+        </a>
+        <a class="header_icon" href="{% url 'account_login' %}">
+            <i class="fas fa-sign-in-alt"></i>
+        </a>
+    {% endif %}
+{% endblock %}
+
+{% block sidebar_content %}
+<div class="sidebar_content_area">
+
+    <div class="sidebar_content">
+		<a href="{% url 'tube:rank' %}" class="sidebar_icon"><i class="fas fa-crown"></i><div class="sidebar_explain">ランキング</div></a>
+	</div>
+    <div class="sidebar_content">
+		<a href="{% url 'tube:search' %}" class="sidebar_icon"><i class="far fa-lightbulb"></i><div class="sidebar_explain">新着動画</div></a>
+	</div>
+
+    {% if request.user.is_authenticated %}
+    <!-- 認証済みユーザーのアイコン-->
+    <div class="sidebar_content">
+		<a href="{% url 'tube:mypage' %}" class="sidebar_icon"><i class="fas fa-user"></i><div class="sidebar_explain">マイページ</div></a>
+	</div>
+    <div class="sidebar_content">
+		<a href="{% url 'tube:notify' %}" class="sidebar_icon"><i class="far fa-bell"></i><div class="sidebar_explain">通知</div></a>
+	</div>
+    <div class="sidebar_content">
+		<a href="{% url 'tube:history' %}" class="sidebar_icon"><i class="fas fa-history"></i><div class="sidebar_explain">視聴履歴</div></a>
+	</div>
+    <div class="sidebar_content">
+		<a href="{% url 'tube:mylist' %}" class="sidebar_icon"><i class="far fa-list-alt"></i><div class="sidebar_explain">マイリスト</div></a>
+	</div>
+    <div class="sidebar_content">
+		<a href="{% url 'tube:recommend' %}" class="sidebar_icon"><i class="far fa-star"></i><div class="sidebar_explain">おすすめ</div></a>
+	</div>
+    <div class="sidebar_content">
+		<a href="{% url 'tube:upload' %}" class="sidebar_icon"><i class="far fa-file-video"></i><div class="sidebar_explain">アップロード</div></a>
+	</div>
+    <div class="sidebar_content">
+		<a href="{% url 'tube:config' %}" class="sidebar_icon"><i class="fas fa-cogs"></i><div class="sidebar_explain">設定</div></a>
+	</div>
+    <div class="sidebar_content">
+		<a href="{% url 'account_logout' %}" class="sidebar_icon"><i class="fas fa-sign-out-alt"></i><div class="sidebar_explain">ログアウト</div></a>
+	</div>
+    {% else %}
+    <!-- 未認証ユーザーのアイコン-->
+    <div class="sidebar_content">
+		<a href="{% url 'account_signup' %}" class="sidebar_icon"><i class="fas fa-user-plus"></i><div class="sidebar_explain">会員登録</div></a>
+	</div>
+    <div class="sidebar_content">
+		<a href="{% url 'account_login' %}" class="sidebar_icon"><i class="fas fa-sign-in-alt"></i><div class="sidebar_explain">ログイン</div></a>
+	</div>
+    {% endif %}
+
+
+    <div class="sidebar_content">
+		<a href="" class="sidebar_icon"><i class="far fa-question-circle"></i><div class="sidebar_explain">ヘルプ</div></a>
+	</div>
+    <div class="sidebar_content">
+		<a href="" class="sidebar_icon"><i class="fas fa-book"></i><div class="sidebar_explain">利用規約</div></a>
+	</div>
+
+</div>
+{% endblock %}
+
+{% block main %}
+{% endblock %}
+
