@@ -481,10 +481,10 @@ class UpdateView(LoginRequiredMixin,views.APIView):
 update  = UpdateView.as_view()
 
 
-class ConfigVies(LoginRequiredMixin,views.APIView):
+class ConfigViews(LoginRequiredMixin,views.APIView):
 
     def get(self, request, *args, **kwargs):
 
         return render(request, "tube/config.html")
 
-config = ConfigVies.as_view()
+config = ConfigViews.as_view()

@@ -51,7 +51,10 @@
                 {% if video.user.usericon %}
                 <div><img src="/media/{{ video.user.usericon }}" alt="投稿者アイコン"></div>
                 {% else %}
+                <div style="font-size:4rem;"><i class="fas fa-user"></i></div>
+                <!--
                 <div><img src="{% static 'tube/img/user.png' %}" alt="未指定投稿者アイコン"></div>
+                -->
                 {% endif %}
 
 
